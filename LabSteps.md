@@ -57,8 +57,9 @@ DNS: 172.16.0.1
 
 <h2>Step 6: Create AD Users with PowerShell</h2>
 
-• A script was used to take a text file of 1000 first and last names and generate AD users for each name.
+[PowerShell Script](https://github.com/MattGore4/ActiveDirectoryLab/blob/main/ad-user-creation.ps1)
 
+• A script was used to take a text file of 1000 first and last names and generate AD users for each name.
 
 <p align="center">
 <img width="80%" height="80%" alt="Image" src="https://github.com/user-attachments/assets/877c7b8b-c1c7-4ace-bbff-72a31f6c919d" alt="Image of Powershell script"/>
