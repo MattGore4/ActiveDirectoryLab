@@ -26,6 +26,20 @@ This project implements a hybrid identity infrastructure that bridges on-premise
 **Alternative UPN Suffix:** mattgore.dev
 
 ## OU Architecture
+<p align="center">
+  <img src="images/OU-Architecture.png" alt="Screenshot of Active Directory Users and Computers OU structure">
+</p>
+
+## AGDLP Group Design
+To simplify management of my Active Directory environment and to prepare for future multi-domain and multi-forest home lab additions, I decided to utilize the AGDLP framework. 
+
+**A - Account:** Individual user accounts reside in OU=Users,OU=01-Corp. User accounts are never granted direct access to files, folders, or servers.
+
+**G - Global Group:** Global Groups reside in OU=Global-Roles,OU=Groups,OU=01-Corp. User accounts are placed into Global Security Groups based on their job role in the organization.
+
+**DL - Domain Local Groups:** Domain Local Groups exist in OU=DomainLocal-Permissions,OU=Groups,OU=01-Corp. A Domain Local Security Group is created to represent a specific resource.
+
+**P - Permissions:** The actual rights on a resource (Read, Write, Execute, etc.) are assigned only to the Domain Local Groups.
 
 
 <h2>Languages and Utilities Used</h2>
