@@ -124,13 +124,13 @@ Computer Configuration -> Policies > Windows Settings > Security Settings > Loca
 ## Testing
 
 ### Domain Join Confirmation
-Using the systeminfo findstr /B /C:"Domain" command, I validated Windows 11 endpoint domain join to ad.mattgore.dev and confirmed successful interactive logon under the provisioned domain user profile bjones.
+Using the `systeminfo findstr /B /C:"Domain"` command, I validated Windows 11 endpoint domain join to ad.mattgore.dev and confirmed successful interactive logon under the provisioned domain user profile bjones.
 <p align="center">
   <img src="images/Domain-Join-Verification.png" alt="Screenshot showing the endpoint was successfully domain joined" width="600" height="400">
 </p>
 
 ### GPO Application Validation
-Using the gpresult diagnostic tool with the /scope computer switch evaluates the machine configuration context, verifying device-level GPO’s regardless of which user is logged in. 
+Using the `gpresult` diagnostic tool with the `/scope` computer switch evaluates the machine configuration context, verifying device-level GPO’s regardless of which user is logged in. 
 
 Running the command on the Windows 11 endpoint, I was able to validate that the workstation-specific GPOs were successfully applied.
 <p align="center">
