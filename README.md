@@ -115,14 +115,21 @@ Computer Configuration -> Policies > Windows Settings > Security Settings > Loca
 
 * **Exchange Online Administration:** Provisioned departmental shared mailboxes (HR, Sales, Finance) in Microsoft 365, enforcing least-privilege delegation by granting Send As rights strictly to a department lead and Read and Manage rights to team members.
   * A transport rule was implemented for all incoming external email to prepend "[External]" to the subject line, helping mitigate social engineering and phishing risks.
-    
+<p align="center">
+  <img src="images/Mail-Rule.png" alt="AGDLP Framework Diagram">
+</p>
+
+* **SharePoint Online Administration:** Deployed departmental Team Sites (HR, Sales, Finance) with isolated access permissions so only department members could access the information stored on the site. One departmental lead is given ownership permissions on the site.
+
+## Testing
+
+### Domain Join Confirmation
+Using the dsregcmd /status command, I validated Windows 11 endpoint domain join to ad.mattgore.dev and confirmed successful interactive logon under the provisioned domain user profile bjones.
+
+### GPO Application Validation
 
 
-<h2>Languages and Virtualization Platform Used</h2>
+### Cloud Sync & Identity Verification
 
-- <b>PowerShell</b> 
-- <b>Proxmox</b>
 
-<h2>Environments Used</h2>
-- <b>Windows Server 2025</b>
-- <b>Windows 11</b> 
+
