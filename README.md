@@ -124,7 +124,7 @@ Computer Configuration -> Policies > Windows Settings > Security Settings > Loca
 ## Testing
 
 ### Domain Join Confirmation
-Using the dsregcmd /status command, I validated Windows 11 endpoint domain join to ad.mattgore.dev and confirmed successful interactive logon under the provisioned domain user profile bjones.
+Using the systeminfo findstr /B /C:"Domain" command, I validated Windows 11 endpoint domain join to ad.mattgore.dev and confirmed successful interactive logon under the provisioned domain user profile bjones.
 <p align="center">
   <img src="images/Domain-Join-Verification.png" alt="Screenshot showing the endpoint was successfully domain joined" width="600" height="400">
 </p>
