@@ -41,12 +41,88 @@ To simplify management of my Active Directory environment and to prepare for fut
 
 **P - Permissions:** The actual rights on a resource (Read, Write, Execute, etc.) are assigned only to the Domain Local Groups.
 
+<p align="center">
+  <img src="images/AGDLP-Diagram.png" alt="AGDLP Framework Diagram">
+</p>
 
-<h2>Languages and Utilities Used</h2>
+## Group Policy Implementation
+
+### GPO_User_DriveMappings
+
+**GPO Link:** OU=Users,OU=01-Corp
+
+**GPO Objective:** Attach persistent network share drives when users log in, eliminating manual setup.
+
+**Policy Configurations:** 
+
+User Configuration > Preferences > Windows Settings > Drive Maps > New > Mapped Drive
+
+### GPO_Workstation_Security_Baseline
+
+**GPO Link:** OU=Workstations,OU=01-Corp
+
+**GPO Objective:** Prevent unauthorized physical session takeover if users step away from their computer. Ensure attackers cannot intercept credentials by exploiting Link-Local Multicast Name Resolution queries. Block lateral movement from internal clients and protect workstations from attacks beyond the corporate perimeter.
+
+**Policy Configurations:** 
+
+Computer Configuration > Policies > Windows Settings > Security Settings > Local Policies > Security Options > Machine inactivity limit > 900 seconds
+
+Computer Configuration > Policies > Administrative Templates > Network > DNS Client > Turn off multicast name resolution (Enabled)
+
+Computer Configuration > Policies > Windows Settings > Security Settings > Windows Defender Firewall with Advanced Security > Firewall state (On)
+
+### GPO_Workstation_RemoteDesktop
+
+**GPO Link:** OU=Workstations,OU=01-Corp
+
+**GPO Objective:** Provide the IT helpdesk with the ability to initiate a remote connection to client workstations.
+
+**Policy Configurations:**
+
+Computer Configuration > Policies > Administrative Templates > Windows Components > Remote Desktop Services > Remote Desktop Session Host > Connections > Allow users to connect remotely by using Remote Desktop Services (Enabled)
+
+Computer Configuration > Policies > Administrative Templates > Windows Components > Remote Desktop Services > Remote Desktop Session Host > Connections > Security > Require user authentication for remote connections by using network level authentication (Enabled)
+
+Computer Configuration > Policies > Windows Settings > Security Settings > Windows Defender Firewall with Advanced Security > Inbound Rules > New Rule > Predefined: Remote Desktop
+
+### GPO_Server_Security_Baseline
+
+**GPO Link:** OU=Servers,OU=01-Corp
+
+**GPO Objective:** Block unauthenticated connections from querying the Security Account Manager (SAM) to extract account names and network shares. Log events whenever a server validates submitted credentials to improve auditability of attacks.
+
+**Policy Configurations:**
+
+Computer Configuration > Policies > Windows Settings > Security Settings > Advanced Audit Policy Configuration > System Audit Policies > Account Logon > Audit Credential Validation > Success & Failure
+
+Computer Configuration -> Policies > Windows Settings > Security Settings > Local Policies > Security Options > Network access > Do not allow anonymous enumeration of SAM accounts and shares (Enabled)
+
+## Entra ID Integration & Configuration
+
+**Entra License Tier:** Microsoft Entra ID Free
+
+**Sync Utility:** Microsoft Entra Cloud Sync Agent
+
+**Sync Scope:** OU=01-Corp,DC=ad,DC=mattgore,DC=dev
+
+**Excluded OUs:** 00-Admin, 02-Service Accounts, 03-Quarantine, 04-Disabled Accounts
+
+**Authentication Type:** Password Hash Synchronization (PHS)
+
+## Microsoft 365 Configuration
+
+* **365 Licensing:** Chose 3 users from each department (HR, Sales, Finance) and assigned them the Business Basic Microsoft 365 License.
+
+* **Exchange Online Administration:** Provisioned departmental shared mailboxes (HR, Sales, Finance) in Microsoft 365, enforcing least-privilege delegation by granting Send As rights strictly to a department lead and Read and Manage rights to team members.
+  * A transport rule was implemented for all incoming external email to prepend "[External]" to the subject line, helping mitigate social engineering and phishing risks.
+    
+
+
+<h2>Languages and Virtualization Platform Used</h2>
 
 - <b>PowerShell</b> 
-- <b>VirtualBox</b>
+- <b>Proxmox</b>
 
-<h2>Environments Used </h2>
-- <b>Windows Server 2022</b>
-- <b>Windows 10</b> 
+<h2>Environments Used</h2>
+- <b>Windows Server 2025</b>
+- <b>Windows 11</b> 
