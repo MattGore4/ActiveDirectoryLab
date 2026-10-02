@@ -116,7 +116,7 @@ Computer Configuration -> Policies > Windows Settings > Security Settings > Loca
 * **Exchange Online Administration:** Provisioned departmental shared mailboxes (HR, Sales, Finance) in Microsoft 365, enforcing least-privilege delegation by granting Send As rights strictly to a department lead and Read and Manage rights to team members.
   * A transport rule was implemented for all incoming external email to prepend "[External]" to the subject line, helping mitigate social engineering and phishing risks.
 <p align="center">
-  <img src="images/Mail-Rule.png" alt="AGDLP Framework Diagram">
+  <img src="images/Mail-Rule.png" alt="Screenshot showing the External message was properly appended to the subject line">
 </p>
 
 * **SharePoint Online Administration:** Deployed departmental Team Sites (HR, Sales, Finance) with isolated access permissions so only department members could access the information stored on the site. One departmental lead is given ownership permissions on the site.
@@ -125,11 +125,29 @@ Computer Configuration -> Policies > Windows Settings > Security Settings > Loca
 
 ### Domain Join Confirmation
 Using the dsregcmd /status command, I validated Windows 11 endpoint domain join to ad.mattgore.dev and confirmed successful interactive logon under the provisioned domain user profile bjones.
+<p align="center">
+  <img src="images/Domain-Join-Verification.png" alt="Screenshot showing the endpoint was successfully domain joined">
+</p>
 
 ### GPO Application Validation
+Using the gpresult diagnostic tool with the /scope computer switch evaluates the machine configuration context, verifying device-level GPO’s regardless of which user is logged in. 
 
+Running the command on the Windows 11 endpoint, I was able to validate that the workstation-specific GPOs were successfully applied.
+<p align="center">
+  <img src="images/Workstation-GPO-Verification.png" alt="Screenshot showing the applied GPOs">
+</p>
+
+Running the command on the IIS Server, I was able to validate that the server-specific GPOs were successfully applied.
+<p align="center">
+  <img src="images/Server-GPO-Verification.png" alt="Screenshot showing the applied GPOs">
+</p>
 
 ### Cloud Sync & Identity Verification
+1. Created a new on-prem AD user, jmiller, in OU=Sales,OU=Users,OU=01-Corp.
 
-
+2. Initiated a Cloud Sync cycle for this new user using the Provision on Demand feature in the Microsoft Entra admin center.
+<p align="center">
+  <img src="images/Server-GPO-Verification.png" alt="Screenshot showing the applied GPOs">
+</p>
+3. Successfully signed in to https://myaccount.microsoft.com using mmiller@mattgore.dev with the local AD password, which verifies that Password Hash Synchronization is operational.
 
