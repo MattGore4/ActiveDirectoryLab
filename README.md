@@ -126,7 +126,7 @@ Computer Configuration -> Policies > Windows Settings > Security Settings > Loca
 ### Domain Join Confirmation
 Using the dsregcmd /status command, I validated Windows 11 endpoint domain join to ad.mattgore.dev and confirmed successful interactive logon under the provisioned domain user profile bjones.
 <p align="center">
-  <img src="images/Domain-Join-Verification.png" alt="Screenshot showing the endpoint was successfully domain joined">
+  <img src="images/Domain-Join-Verification.png" alt="Screenshot showing the endpoint was successfully domain joined" width="600" height="400">
 </p>
 
 ### GPO Application Validation
@@ -137,17 +137,18 @@ Running the command on the Windows 11 endpoint, I was able to validate that the 
   <img src="images/Workstation-GPO-Verification.png" alt="Screenshot showing the applied GPOs">
 </p>
 
-Running the command on the IIS Server, I was able to validate that the server-specific GPOs were successfully applied.
+Running the command on the Web Server, I was able to validate that the server-specific GPOs were successfully applied.
 <p align="center">
   <img src="images/Server-GPO-Verification.png" alt="Screenshot showing the applied GPOs">
 </p>
 
 ### Cloud Sync & Identity Verification
-1. Created a new on-prem AD user, jmiller, in OU=Sales,OU=Users,OU=01-Corp.
+1. Created a new on-prem AD user, mmiller, in OU=Sales,OU=Users,OU=01-Corp.
 
 2. Initiated a Cloud Sync cycle for this new user using the Provision on Demand feature in the Microsoft Entra admin center.
 <p align="center">
-  <img src="images/Server-GPO-Verification.png" alt="Screenshot showing the applied GPOs">
+  <img src="images/Cloud-Sync-Verification.png" alt="Screenshot showing the successfully synced user">
 </p>
+
 3. Successfully signed in to https://myaccount.microsoft.com using mmiller@mattgore.dev with the local AD password, which verifies that Password Hash Synchronization is operational.
 
